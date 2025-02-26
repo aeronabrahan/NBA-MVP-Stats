@@ -3,14 +3,20 @@
 ---
 
 ## Overview
-This project is an in-depth analysis of NBA MVP Career Statistics, exploring scoring efficiency, performance longevity, and positional trends. It provides interactive data visualizations in Power BI and is powered by SQL Server, Python, and DAX to deliver meaningful insights.
+This project is an in-depth analysis of NBA MVP Career Statistics, exploring scoring efficiency, performance longevity, and positional trends. It provides interactive data visualizations in Power BI and is powered by SQL Server, Python, and DAX to deliver meaningful insights.  
+
+✔ Live Dashboard Link: [🔗 Coming Soon]  
+
+_Note: Due to publishing restrictions, the player and team visuals are not visible in the embedded version of the dashboard._  
+
+![Power BI Dashboard](assets/images/powerbi_dashboard.gif)
 
 ---
 
 ## Data Coverage
-- Seasons Covered: Last 20 years of NBA MVPs
-- Players Included: 20 Unique MVPs
-- Metrics Analyzed: Points, Assists, Rebounds, Shooting Efficiency, Field Goals, and Player Trends
+- Seasons Covered: Last 20 years of NBA MVPs  
+- Players Included: 20 Unique MVPs  
+- Metrics Analyzed: Points, Assists, Rebounds, Shooting Efficiency, Field Goals, and Player Trends  
 
 ---
 
@@ -21,7 +27,7 @@ This project is an in-depth analysis of NBA MVP Career Statistics, exploring sco
 4. [Dashboard Design](#dashboard-design)  
 5. [Tools Used](#tools-used)  
 6. [Development](#development)  
-7. [Code Used](#code-used)  
+7. [Code Used](#code-used) 
   - [Python](#python)  
   - [SQL Queries](#sql-queries)  
   - [DAX Measures](#dax-measures)  
@@ -59,15 +65,17 @@ This project aims to:
 
 ## Dashboard Design
 The Power BI Dashboard consists of two main pages:
+
 ### **1️⃣ MVP Career Stats Overview**
 - **Player Selector** (Filter by MVP)  
 - **Key Stats:** Points, Assists, Rebounds, FG%, Steals, Blocks  
 - **Scoring Efficiency Gauges:** (True Shooting %, Free Throw %, 3P%)  
 - **Field Goals Over Age (Stacked Column Chart)**  
 - **Points Over Age (Line Chart)**  
+
 ### **2️⃣ Analysis Page**
 - **Longevity Trends:** MVPs' peak and decline years  
-- **Playstyle Evolution:** Comparing 1990s MVPs vs. Modern MVPs
+- **Playstyle Evolution:** Comparing MVPs across decades  
 - **Efficiency vs. Volume Scoring:** Impact on career length  
 - **MVP Trends by Position & Era (Treemap, Clustered Bar Charts)**  
 - **Findings, Recommendations & Action Plan**  
@@ -84,20 +92,23 @@ The Power BI Dashboard consists of two main pages:
 ---
 
 ## Development
-### Pseudocode
-1. Scrape MVP Data from Basketball Reference
-2. Extract Player Photos & Team Logos
-3. Store Data in SQL Server & Clean the Dataset
-4. Connect to Power BI & Transform Data
-5. Build Visuals & DAX Measures for Key Insights
-### Data Cleaning
-- Handled missing team data by tracking their last MVP team
-- Converted season format (YYYY-YY) to a date-friendly format
+
+### **Pseudocode**
+1. Scrape MVP Data from Basketball Reference  
+2. Extract Player Photos & Team Logos  
+3. Store Data in SQL Server & Clean the Dataset  
+4. Connect to Power BI & Transform Data  
+5. Build Visuals & DAX Measures for Key Insights  
+
+### **Data Cleaning**
+- Handled missing team data by tracking their last MVP team  
+- Converted season format (YYYY-YY) to a date-friendly format  
 - Removed duplicate MVPs (same player winning multiple times)  
 
 ---
 
 ## Code Used
+
 ### Python
 ```python
 #Python script to scrape MVP data, player photos, and team logos
@@ -269,6 +280,62 @@ df.to_csv(csv_filename, index=False, encoding="utf-8-sig")
 print(f"Data scraped and saved to {csv_filename}")
 ```
 
+```python
+import re
+import requests
+import pandas as pd
+from bs4 import BeautifulSoup
+
+
+# Define file paths
+input_csv_path = r"C:\Users\z003yh0e\OneDrive - Siemens Energy\Desktop\Reliability Data Engineer\Training\ETL to Power BI End-to-End Training\NBA MVP Data\datasets\mvp_data.csv"
+output_csv_path = r"C:\Users\z003yh0e\OneDrive - Siemens Energy\Desktop\Reliability Data Engineer\Training\ETL to Power BI End-to-End Training\NBA MVP Data\datasets\mvp.csv"
+
+# Load the existing MVP dataset
+df = pd.read_csv(input_csv_path)
+
+# Function to retrieve and clean player description from Wikipedia
+def get_wikipedia_description(player_name):
+    try:
+        # Construct Wikipedia search URL
+        search_url = f"https://en.wikipedia.org/wiki/{player_name.replace(' ', '_')}"
+        response = requests.get(search_url, headers={"User-Agent": "Mozilla/5.0"})
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # Extract first paragraph of the player's Wikipedia article
+        paragraphs = soup.find_all("p")
+        if not paragraphs:
+            return f"No Wikipedia data found for {player_name}"
+
+        for para in paragraphs:
+            text = para.get_text().strip()
+            if len(text) > 100:  # Ensure it's a meaningful paragraph
+                # Remove citations (e.g., [1], [citation needed], etc.)
+                text_cleaned = re.sub(r"\[\d+\]", " ", text)  # Remove numeric citations
+                text_cleaned = re.sub(r"\[.*?\]", " ", text_cleaned)  # Remove any other brackets
+
+                # Normalize spacing issues
+                text_cleaned = re.sub(r"([.,!?])([A-Za-z])", r"\1 \2", text_cleaned)  # Ensure space after punctuation
+                text_cleaned = re.sub(r"\s+", " ", text_cleaned)  # Convert multiple spaces to single space
+                text_cleaned = text_cleaned.strip()  # Final cleanup
+
+                return text_cleaned
+
+        return f"No valid description found for {player_name}"
+
+    except Exception as e:
+        return f"Error retrieving data for {player_name}: {e}"
+
+# Apply Wikipedia description extraction to each player
+df["PlayerInfo"] = df["Player"].apply(get_wikipedia_description)
+
+# Save the updated dataset
+df.to_csv(output_csv_path, index=False, encoding="utf-8-sig")
+
+print(f"Updated dataset saved to {output_csv_path}")
+```
+
+
 ---
 
 ### SQL Queries
@@ -276,6 +343,7 @@ print(f"Data scraped and saved to {csv_filename}")
 -- Create database
 USE mvp_db;
 GO
+
 -- Create the production-ready table "mvp_career_stats" without the Awards column
 CREATE TABLE dbo.mvp_career_stats (
    Player          VARCHAR(100)    NOT NULL,
@@ -309,17 +377,19 @@ CREATE TABLE dbo.mvp_career_stats (
    TOV             FLOAT,
    PF              FLOAT,
    PTS             FLOAT,
-   MVP_Award_Year    NVARCHAR(7),   -- Format: 'YYYY-YY'
-   PlayerPhoto       NVARCHAR(255), -- URL for player's headshot
-   TeamLogo          NVARCHAR(255)  -- URL for team logo
+   MVP_Award_Year    VARCHAR(7),   
+   PlayerPhoto       VARCHAR(255), 
+   TeamLogo          VARCHAR(255),
+   PlayerInfo        VARCHAR(MAX)
 );
 GO
+
 -- Insert clean, transformed data from dbo.mvp_data into dbo.mvp_career_stats.
 -- (Note: We assume dbo.mvp_data�s column names follow the CSV header normalization.)
 INSERT INTO dbo.mvp_career_stats (
    Player, Season, Age, Team, Lg, Pos, G, GS, MP, FG, FGA, [FG%],
    [3P], [3PA], [3P%], [2P], [2PA], [2P%], [eFG%], FT, FTA, [FT%],
-   ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS, MVP_Award_Year, PlayerPhoto, TeamLogo
+   ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS, MVP_Award_Year, PlayerPhoto, TeamLogo, PlayerInfo
 )
 SELECT
    Player,
@@ -355,7 +425,8 @@ SELECT
    TRY_CAST(PTS AS FLOAT) AS PTS,
    MVP_Award_Year,
    PlayerPhoto,
-   TeamLogo
+   TeamLogo,
+   PlayerInfo
 FROM dbo.mvp_data
 WHERE TRY_CAST(G AS INT) > 0;  -- Exclude rows where the player did not play any games.
 GO
@@ -419,6 +490,11 @@ _TotalTOV = AVERAGE(vw_mvp_career_stats[TOV])
 -- Player & Team Logos in HTML Format
 _PlayerPhotoHTML = "<img src='" & MAX(vw_mvp_career_stats[PlayerPhoto]) & "' width='150px'>"
 _TeamLogoHTML = "<img src='" & MAX(vw_mvp_career_stats[TeamLogo]) & "' width='100px'>"
+
+-- Selected Player Filters
+_SelectedPlayer= SELECTEDVALUE(vw_mvp_career_stats[Player])
+_SelectedPlayerInfo= LOOKUPVALUE(vw_mvp_career_stats[PlayerInfo], vw_mvp_career_stats[Player], _SelectedPlayer)
+
 ```
 ---
 
@@ -443,39 +519,42 @@ _TeamLogoHTML = "<img src='" & MAX(vw_mvp_career_stats[TeamLogo]) & "' width='10
 ---
 
 ## Analysis & Insights
-### Findings
-✔ Peak scoring years for MVPs are between 26-30  
-✔ Players with high FG% maintain longer MVP-level careers  
-✔ Three-point shooters tend to age better in modern NBA  
-✔ Players who rely on athleticism decline faster than playmakers  
+
+### Key Findings
+✔ **Peak Performance Age: MVPs peak between 26-30 years old**.  
+✔ **Efficiency Matters: MVPs with high **FG% & TS%** sustain longer careers.**  
+✔ **Three-Point Shooting Evolution: Modern MVPs take more three-pointers.**  
+✔ **Positional Trends: SF, PG, and PF dominate MVP wins in recent years.**  
+
 ### Validation
-- Data aligned with historical NBA reports
-- Accuracy confirmed through cross-checking external sources
+- **Data aligned with historical NBA reports**  
+- **Accuracy confirmed through cross-checking external sources**  
+  
 ### Discovery
-- The next MVP trend will likely favor Playmaking Bigs
-- Efficiency over volume shooting is becoming the standard
-- Positional trends indicate that guards peak earlier than forwards/centers
+- **The next MVP trend will likely favor Playmaking Bigs**  
+- **Efficiency over volume shooting is becoming the standard**  
+- **Positional trends indicate that guards peak earlier than forwards/centers**  
 
 ---
 
 ## Recommendations
-✔ Teams should prioritize efficient scorers over volume shooters  
-✔ Develop MVP candidates by emphasizing True Shooting %  
-✔ Predict the next MVP based on historical patterns & trends  
+✔ **Teams should prioritize efficient scorers over volume shooters**  
+✔ **Develop MVP candidates by emphasizing True Shooting %**  
+✔ **Predict the next MVP by using data-driven scouting**  
 
 ---
 
 ## Action Plan
-**Step 1:** Expand dataset to include Playoff MVPs for deeper insights  
-**Step 2:** Implement **machine learning models** to predict future MVPs  
-**Step 3:** Deploy Power BI dashboard for live updates & external access
 
----
+### Short-Term:
+1️⃣ **Expand dataset to include Playoff MVPs**  
+2️⃣ **Develop a normalized MVP Index for comparisons**  
+3️⃣ **Enhance dashboard with era, position, and efficiency filters**  
 
-## Visualization
-✔ Live Dashboard Link: [🔗 Coming Soon]  
-✔ Power BI Dashboard Preview:
-![Power BI Dashboard](assets/images/powerbi_dashboard.gif)
+### Long-Term:
+✅ **Build ML models to predict future MVPs**  
+✅ **Automate real-time Power BI updates**  
+✅ **Publish insights for NBA teams & analysts**  
 
 ---
 
