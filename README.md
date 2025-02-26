@@ -522,7 +522,7 @@ _SelectedPlayerInfo= LOOKUPVALUE(vw_mvp_career_stats[PlayerInfo], vw_mvp_career_
 
 ### Key Findings
 ✔ **Peak Performance Age: MVPs peak between 26-30 years old**.  
-✔ **Efficiency Matters: MVPs with high **FG% & TS%** sustain longer careers.**  
+✔ **Efficiency Matters: MVPs with high FG% & TS%** sustain longer careers.**  
 ✔ **Three-Point Shooting Evolution: Modern MVPs take more three-pointers.**  
 ✔ **Positional Trends: SF, PG, and PF dominate MVP wins in recent years.**  
 
