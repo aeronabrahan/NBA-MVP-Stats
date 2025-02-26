@@ -2,35 +2,38 @@
 
 ---
 
-## **📌 Overview**
+## Overview
 This project is an in-depth analysis of NBA MVP Career Statistics, exploring scoring efficiency, performance longevity, and positional trends. It provides interactive data visualizations in Power BI and is powered by SQL Server, Python, and DAX to deliver meaningful insights.
 
 ---
 
-## **📊 Data Coverage**
+## Data Coverage
 - Seasons Covered: Last 20 years of NBA MVPs
 - Players Included: 20 Unique MVPs
 - Metrics Analyzed: Points, Assists, Rebounds, Shooting Efficiency, Field Goals, and Player Trends
 
 ---
 
-## **📌 Table of Contents**
-1. [Problem Statement](#problem-statement)
-2. [Objective](#objective)
-3. [Data Source](#data-source)
-4. [Dashboard Design](#dashboard-design)
-5. [Tools Used](#tools-used)
-6. [Development](#development)
-7. [Code Used (Python, SQL, DAX)](#code-used)
-8. [Testing & Data Validation](#testing-data-validation)
-9. [Analysis & Insights](#analysis-insights)
-10. [Recommendations](#recommendations)
-11. [Action Plan](#action-plan)
+## Table of Contents
+1. [Problem Statement](#problem-statement)  
+2. [Objective](#objective)  
+3. [Data Source](#data-source)  
+4. [Dashboard Design](#dashboard-design)  
+5. [Tools Used](#tools-used)  
+6. [Development](#development)  
+7. [Code Used](#code-used)  
+  - [Python](#python)  
+  - [SQL Queries](#sql-queries)  
+  - [DAX Measures](#dax-measures)  
+8. [Testing & Data Validation](#testing--data-validation)  
+9. [Analysis & Insights](#analysis--insights)  
+10. [Recommendations](#recommendations)  
+11. [Action Plan](#action-plan)  
 12. [Connect With Me](#connect-with-me)
 
 ---
 
-## **📌 Problem Statement**
+## Problem Statement
 The NBA MVP Award is given to the best player of the season, but what happens after?  
 - Do MVPs maintain their peak performance across seasons?  
 - How does scoring efficiency change with age?  
@@ -38,7 +41,7 @@ The NBA MVP Award is given to the best player of the season, but what happens af
 
 ---
 
-## **📌 Objective**
+## Objective
 This project aims to:
 ✔ **Analyze** MVP performance across their careers  
 ✔ **Identify** trends in scoring, efficiency, and positional impact
@@ -47,14 +50,14 @@ This project aims to:
 
 ---
 
-## **📌 Data Source**
+## Data Source
 ✔ **Primary Source:** Scraped from [Basketball Reference](https://www.basketball-reference.com/)  
 ✔ **Additional Sources:** Player Photos & Team Logos from **NBA.com**  
 ✔ **Data Fields:** Season, Age, Team, FG%, PTS, AST, TRB, MVP Year  
 
 ---
 
-## **📌 Dashboard Design**
+## Dashboard Design
 The Power BI Dashboard consists of two main pages:
 ### **1️⃣ MVP Career Stats Overview**
 - **Player Selector** (Filter by MVP)  
@@ -71,7 +74,7 @@ The Power BI Dashboard consists of two main pages:
 
 ---
 
-## **📌 Tools Used**
+## Tools Used
 ✔ **Python** - Web Scraping (Basketball Reference, NBA.com)  
 ✔ **SQL Server** - Data Storage & Transformation  
 ✔ **Power BI** - Dashboard & Data Visualization  
@@ -80,26 +83,22 @@ The Power BI Dashboard consists of two main pages:
 
 ---
 
-## **📌 Development**
-### **🔹 Pseudocode**
-1. **Scrape MVP Data from Basketball Reference**  
-2. **Extract Player Photos & Team Logos**  
-3. **Store Data in SQL Server & Clean the Dataset**  
-4. **Connect to Power BI & Transform Data**  
-5. **Build Visuals & DAX Measures for Key Insights**  
-### **🔹 Data Exploration**
-- MVPs show **consistent peak performance between ages 26-30**  
-- **Older MVPs tend to rely more on efficiency than volume shooting**  
-- **Defensive MVPs** have **longer careers** than pure scorers  
-### **🔹 Data Cleaning**
-- **Handled missing team data** by **tracking their last MVP team**  
-- **Converted season format** (YYYY-YY) to a **date-friendly format**  
-- **Removed duplicate MVPs** (same player winning multiple times)  
+## Development
+### Pseudocode
+1. Scrape MVP Data from Basketball Reference
+2. Extract Player Photos & Team Logos
+3. Store Data in SQL Server & Clean the Dataset
+4. Connect to Power BI & Transform Data
+5. Build Visuals & DAX Measures for Key Insights
+### Data Cleaning
+- Handled missing team data by tracking their last MVP team
+- Converted season format (YYYY-YY) to a date-friendly format
+- Removed duplicate MVPs (same player winning multiple times)  
 
 ---
 
-## **📌 Code Used**
-### **🔹 Python (Web Scraping & Data Processing)**
+## Code Used
+### Python
 ```python
 #Python script to scrape MVP data, player photos, and team logos
 import os
@@ -272,7 +271,7 @@ print(f"Data scraped and saved to {csv_filename}")
 
 ---
 
-### **🔹 SQL Queries (Database Creation & Data Processing)**
+### SQL Queries
 ```sql
 -- Create database
 USE mvp_db;
@@ -397,7 +396,7 @@ GO
 
 ---
 
-### **🔹 DAX Measures (Power BI Calculations)**
+### DAX Measures
 ```DAX
 -- True Shooting Percentage
 _TrueShootingPercentage = DIVIDE([_TotalPTS], (2 * ([TotalFGA] + 0.44 * [TotalFTA])))
@@ -423,8 +422,8 @@ _TeamLogoHTML = "<img src='" & MAX(vw_mvp_career_stats[TeamLogo]) & "' width='10
 ```
 ---
 
-## **📌 Testing & Data Validation**
-### **✔ Data Quality Checks**
+## Testing & Data Validation
+### ✔ Data Quality Checks
 | Test | Status |
 |------|--------|
 | Row Count Check | ✅ Passed |
@@ -432,7 +431,7 @@ _TeamLogoHTML = "<img src='" & MAX(vw_mvp_career_stats[TeamLogo]) & "' width='10
 | Data Type Check | ✅ Passed |
 | Duplicate Check | ✅ Passed |
 
-🔹 **Screenshots of Validation Tests**:
+**Screenshots of Validation Tests**:
 - **Row Count Check**  
  ![Row Count Check](assets/images/row_count_check.png)
 - **Duplicate Count Check**  
@@ -443,46 +442,46 @@ _TeamLogoHTML = "<img src='" & MAX(vw_mvp_career_stats[TeamLogo]) & "' width='10
  ![Null Data Check](assets/images/null_data_check.png)
 ---
 
-## **📌 Analysis & Insights**
-### **🔹 Findings**
-✔ **Peak scoring years** for MVPs are between **26-30**  
-✔ **Players with high FG% maintain longer MVP-level careers**  
-✔ **Three-point shooters tend to age better in modern NBA**  
-✔ **Players who rely on athleticism decline faster than playmakers**  
-### **🔹 Validation**
-- Data **aligned with historical NBA reports**  
-- Accuracy confirmed through **cross-checking external sources**  
-### **🔹 Discovery**
-- **The next MVP trend will likely favor Playmaking Bigs**  
-- **Efficiency over volume shooting is becoming the standard**  
-- **Positional trends indicate that guards peak earlier than forwards/centers**  
+## Analysis & Insights
+### Findings
+✔ Peak scoring years for MVPs are between 26-30
+✔ Players with high FG% maintain longer MVP-level careers
+✔ Three-point shooters tend to age better in modern NBA
+✔ Players who rely on athleticism decline faster than playmakers
+### Validation
+- Data aligned with historical NBA reports
+- Accuracy confirmed through cross-checking external sources
+### Discovery
+- The next MVP trend will likely favor Playmaking Bigs
+- Efficiency over volume shooting is becoming the standard
+- Positional trends indicate that guards peak earlier than forwards/centers
 
 ---
 
-## **📌 Recommendations**
-✔ **Teams should prioritize efficient scorers over volume shooters**  
-✔ **Develop MVP candidates by emphasizing True Shooting %**  
-✔ **Predict the next MVP based on historical patterns & trends**  
+## Recommendations
+✔ Teams should prioritize efficient scorers over volume shooters
+✔ Develop MVP candidates by emphasizing True Shooting %
+✔ Predict the next MVP based on historical patterns & trends
 
 ---
 
-## **📌 Action Plan**
-**Step 1:** Expand dataset to include **Playoff MVPs** for deeper insights  
+## Action Plan
+**Step 1:** Expand dataset to include Playoff MVPs for deeper insights  
 **Step 2:** Implement **machine learning models** to predict future MVPs  
-**Step 3:** Deploy Power BI dashboard for **live updates & external access**  
+**Step 3:** Deploy Power BI dashboard for live updates & external access
 
 ---
 
-## **📌 Visualization**
-✔ **Live Dashboard Link:** [🔗 Coming Soon]  
-✔ **Power BI Dashboard Preview:**  
+## Visualization
+✔ Live Dashboard Link: [🔗 Coming Soon]  
+✔ Power BI Dashboard Preview:
 ![Power BI Dashboard](assets/images/powerbi_dashboard.gif)
 
 ---
 
-## **📌 Connect with Me**
-📂 **GitHub Profile:** [github.com/aeronabrahan](https://github.com/aeronabrahan)  
-🔗 **LinkedIn Profile:** [linkedin.com/in/jagabrahan](https://linkedin.com/in/jagabrahan)  
-📧 **Email Address:** [aerongabrahan@gmail.com](mailto:aerongabrahan@gmail.com)  
+## Connect with Me
+📂 GitHub Profile: [github.com/aeronabrahan](https://github.com/aeronabrahan)  
+🔗 LinkedIn Profile: [linkedin.com/in/jagabrahan](https://linkedin.com/in/jagabrahan)  
+📧 Email Address: [aerongabrahan@gmail.com](mailto:aerongabrahan@gmail.com)  
 
 ---
