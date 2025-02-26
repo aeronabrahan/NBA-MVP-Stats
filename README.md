@@ -42,11 +42,11 @@ The NBA MVP Award is given to the best player of the season, but what happens af
 ---
 
 ## Objective
-This project aims to:
+This project aims to:  
 ✔ **Analyze** MVP performance across their careers  
-✔ **Identify** trends in scoring, efficiency, and positional impact
+✔ **Identify** trends in scoring, efficiency, and positional impact  
 ✔ **Compare** MVPs across eras and playing styles  
-✔ **Deliver** data-driven insights for NBA teams and analysts
+✔ **Deliver** data-driven insights for NBA teams and analysts  
 
 ---
 
@@ -444,10 +444,10 @@ _TeamLogoHTML = "<img src='" & MAX(vw_mvp_career_stats[TeamLogo]) & "' width='10
 
 ## Analysis & Insights
 ### Findings
-✔ Peak scoring years for MVPs are between 26-30
-✔ Players with high FG% maintain longer MVP-level careers
-✔ Three-point shooters tend to age better in modern NBA
-✔ Players who rely on athleticism decline faster than playmakers
+✔ Peak scoring years for MVPs are between 26-30  
+✔ Players with high FG% maintain longer MVP-level careers  
+✔ Three-point shooters tend to age better in modern NBA  
+✔ Players who rely on athleticism decline faster than playmakers  
 ### Validation
 - Data aligned with historical NBA reports
 - Accuracy confirmed through cross-checking external sources
@@ -459,9 +459,9 @@ _TeamLogoHTML = "<img src='" & MAX(vw_mvp_career_stats[TeamLogo]) & "' width='10
 ---
 
 ## Recommendations
-✔ Teams should prioritize efficient scorers over volume shooters
-✔ Develop MVP candidates by emphasizing True Shooting %
-✔ Predict the next MVP based on historical patterns & trends
+✔ Teams should prioritize efficient scorers over volume shooters  
+✔ Develop MVP candidates by emphasizing True Shooting %  
+✔ Predict the next MVP based on historical patterns & trends  
 
 ---
 
