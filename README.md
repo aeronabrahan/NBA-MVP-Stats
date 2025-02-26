@@ -83,6 +83,7 @@ The Power BI Dashboard consists of two main pages:
 ---
 
 ## Tools Used
+✔ **ChatGPT** - Assisted with problem-solving, coding, structuring the project, and documentation  
 ✔ **Python** - Web Scraping (Basketball Reference, NBA.com)  
 ✔ **SQL Server** - Data Storage & Transformation  
 ✔ **Power BI** - Dashboard & Data Visualization  
