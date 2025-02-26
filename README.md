@@ -5,7 +5,7 @@
 ## Overview
 This project is an in-depth analysis of NBA MVP Career Statistics, exploring scoring efficiency, performance longevity, and positional trends. It provides interactive data visualizations in Power BI and is powered by SQL Server, Python, and DAX to deliver meaningful insights.  
 
-✔ Live Dashboard Link: [🔗 Coming Soon]  
+✔ Live Dashboard Link: [NBA Last 20 MVP Career Stats Analysis](https://app.powerbi.com/reportEmbed?reportId=c5ad9c0d-84ea-4990-ad05-7006c8b4e7c9&autoAuth=true&ctid=254ba93e-1f6f-48f3-90e6-e2766664b477)  
 
 _Note: Due to publishing restrictions, the player and team visuals are not visible in the embedded version of the dashboard._  
 
