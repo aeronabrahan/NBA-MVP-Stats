@@ -11,13 +11,16 @@ github_username: "aeronabrahan"
 show_downloads: true
 include:
  - README.md
- - assets/
+ - assets/datasets
+ - assets/images
+ - assets/pbi
+ - assets/scripts
 # Repository Settings
 repository: "aeronabrahan/nba-mvp-dashboard"
 url: "https://github.com/aeronabrahan/nba-mvp-dashboard"
 # SEO and Social Sharing
 social:
- name: "Aeron Abrahan"
+ name: "Jan Aeron Abrahan"
  links:
    - "https://github.com/aeronabrahan"
    - "https://linkedin.com/in/jagabrahan"
